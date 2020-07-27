@@ -1,0 +1,3 @@
+module.exports = {
+    database: "mongodb+srv://<USERNAME>:<PASSWORD>@djiannicluster.tjm9z.mongodb.net/item-js-app?retryWrites=true&w=majority",
+  };
