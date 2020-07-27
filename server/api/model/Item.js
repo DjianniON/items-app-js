@@ -17,6 +17,10 @@ let itemSchema = mongoose.Schema({
     type: Date,
     required: true
   },
+  isResolved: {
+    type: Boolean,
+    default: false
+  },
   created: {
     type: Date,
     default: Date.now()
