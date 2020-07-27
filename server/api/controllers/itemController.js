@@ -1,5 +1,3 @@
-let mongoose = require("mongoose");
-
 const Item = require("../model/Item");
 
 exports.getAllItems = async (req, res) => {
