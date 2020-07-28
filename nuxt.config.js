@@ -35,6 +35,9 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    {
+      src: '~/plugins/sweetalert'
+    }
   ],
   /*
   ** Auto import components
@@ -46,19 +49,34 @@ export default {
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    //'@nuxtjs/eslint-module',
+    
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
     // Doc: https://bootstrap-vue.js.org
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/axios'
   ],
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    extend(config, ctx) {
+      config.module.rules.push({
+        test: /\.(jpeg|jpg|png?g)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]'
+        }
+      })
+    }
+  },
+
+  axios: {
+    baseURL: 'http://localhost:3001'
   }
 }
