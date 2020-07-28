@@ -7,7 +7,7 @@ const itemController = require("../controllers/itemController");
 
 const multer = require("../middlewares/multer");
 
-router.get("/", auth,  itemController.getAllItems);
+router.get("/", auth, itemController.getAllItems);
 router.post("/", auth, multer, itemController.addNewItem);
 router.get('/:ItemId', auth, itemController.getOneItem);
 router.put('/:ItemId', auth, multer, itemController.editItem);

@@ -50,7 +50,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     //'@nuxtjs/eslint-module',
-    
+
   ],
   /*
   ** Nuxt.js modules
@@ -58,22 +58,33 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-    extend(config, ctx) {
-      config.module.rules.push({
-        test: /\.(jpeg|jpg|png?g)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]'
-        }
-      })
+
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
+          logout: false,
+          user: false
+        },
+        // tokenRequired: true,
+        tokenType: 'bearer'
+      }
     }
+  },
+
+  router: {
+    middleware: ['auth']
   },
 
   axios: {
