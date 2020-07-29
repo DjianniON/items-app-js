@@ -34,20 +34,7 @@ exports.addNewItem = async (req, res) => {
     res.status(500).json({ error: err });
   }
 };
-/* TODO: Gérer la modification
-exports.editItem = (req, res, next) => {
-  const id = req.params.ItemId;
-  let result = await Item.updateOne({ _id: id});
-  const itemObject = req.file ?
-    {
-      ...JSON.parse(req.body.item),
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };
-  Item.updateOne({ _id: id }, { ...itemObject, _id: id })
-    .then(() => res.status(200).json({ itemObject }))
-    .catch(error => res.status(400).json({ error }));
-};
-*/
+//> WIP: Fonction non opérationnelle pour l'instant
 exports.editItem = async (req, res) => {
   try {
   const id = req.params.ItemId;
