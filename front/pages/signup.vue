@@ -15,7 +15,7 @@ export default {
   methods: {
     async signUpUser(registerInfo) {
         await this.$axios.post("/api/auth/signup", registerInfo);
-        //swal("Confirmation de création", "Votre compte a bien été créé.");
+        swal("Confirmation de création", "Votre compte a bien été créé. Vous allez être automatiquement connecté(e).");
         this.$auth.loginWith("local", {
           data: registerInfo,
         }).catch((err) =>
