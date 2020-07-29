@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <h1>S'inscrire</h1>
-
     <UserAuthForm submitText="S'inscrire" :submitForm="signUpUser" />
   </div>
 </template>

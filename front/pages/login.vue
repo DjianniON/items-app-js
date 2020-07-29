@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <h1>Se connecter</h1>
-
     <UserAuthForm submitText="Se connecter" :submitForm="loginUser" />
   </div>
 </template>

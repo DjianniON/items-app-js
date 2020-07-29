@@ -1,9 +1,9 @@
 <template>
   <div>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-warning text-light">
-        <div class="container">
-          <a class="navbar-brand" href="/">Gestionnaire d'objets</a>
+      <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <div class="container-fluid">
+          <a class="navbar-brand font-weight-bold" href="/">Gestionnaire d'objets</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -18,7 +18,7 @@
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul v-if="$auth.loggedIn" class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link">Vous êtes actuellement connecté.</a>
+                <a class="nav-link font-weight-bold text-white">Vous êtes actuellement connecté.</a>
               </li>
               <li>
                 <a @click="$auth.logout()" class="nav-link" href="">Se déconnecter</a>
