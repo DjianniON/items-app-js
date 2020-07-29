@@ -16,12 +16,7 @@
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="itemDetails.description"
-                      required
-                    />
+                    <textarea class="form-control" v-model="itemDetails.description" rows="3" required></textarea>
                   </div>
                   <div class="form-group">
                     <label for="foundDate">Date</label>
@@ -68,19 +63,22 @@
             <div class="card-title text-center p-3">
               <h2>Liste des objets</h2>
               <button
-                class="btn btn-info m-3"
+                class="btn btn-primary m-3"
                 @click="initForm"
-              >{{addState?"Annuler":"Ajouter un nouvel objet"}}</button>
+              >{{addState?"Fermer la création d'objets":"Ajouter un nouvel objet"}}</button>
             </div>
             <div class="card-body">
-              <table class="table">
+              <p class="text-center" v-if="allItems.length === 0">
+                    Il n'a pas encore d'objet disponible. Veuillez en ajouter un nouveau avec le bouton "Ajouter un objet".
+                  </p>
+              <table v-else class="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Image</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Date de dépôt</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -95,12 +93,12 @@
                 <tbody v-else>
                   <tr v-for="(item, index) in allItems" :key="index">
                     <td>{{ index + 1 }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
                     <td>
                       <img class="img-fluid" :src="path + item.img.path" :alt="item.img.filename" />
                     </td>
-                    <td>{{ item.foundDate }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ formatDate(item.foundDate) }}</td>
                     <td>
                       <button class="btn btn-danger" @click="deleteItem(item._id)">Supprimer</button>
                     </td>
@@ -116,14 +114,16 @@
 </template>
 
 <script>
+import swal from "sweetalert";
+
 export default {
   data() {
     return {
       itemDetails: {
-        name: '',
-        description: '',
-        item: '',
-        foundDate: ''
+        name: "",
+        description: "",
+        item: "",
+        foundDate: "",
       },
       addState: false,
       allItems: [],
@@ -148,12 +148,16 @@ export default {
     initForm() {
       this.addState = !this.addState;
     },
-    resetForm() { 
-        this.itemDetails.name = ''; 
-        this.itemDetails.description = ''; 
-        this.itemDetails.foundDate = ''; 
-        this.itemDetails.item = '';
-   },
+    formatDate(date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' }
+      return new Date(date).toLocaleDateString('fr', options)
+    },
+    resetForm() {
+      this.itemDetails.name = "";
+      this.itemDetails.description = "";
+      this.itemDetails.foundDate = "";
+      this.itemDetails.item = "";
+    },
     async getAllItems() {
       this.itemLoading = true;
       try {
@@ -184,21 +188,19 @@ export default {
         this.$axios
           .$post("/api/item", formData)
           .then((response) => {
-            console.log(response);
             this.addLoading = false;
             this.itemDetails = {};
             this.getAllItems();
-            swal("Success", "Nouvel objet ajouté.", "success");
+            swal("Opération réussie", "Nouvel objet ajouté.", "success");
             this.resetForm();
           })
           .catch((err) => {
             this.addLoading = false;
-            swal("Error", "Une erreur est apparue.", "error");
-            console.log(err);
+            swal("Opération échouée", "Une erreur est apparue.", "error");
           });
       } else {
         swal(
-          "Error",
+          "Erreur",
           "Type de fichier invalide (Fichiers JPG et PNG acceptés).",
           "error"
         );
@@ -236,3 +238,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  img {
+    max-height: 200px;
+  }
+</style>

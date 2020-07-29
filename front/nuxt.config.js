@@ -15,11 +15,11 @@ export default {
   ** See https://nuxtjs.org/api/configuration-head
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Item JS App' || process.env.npm_package_name,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: 'Site expérimental de gestion d\'objets' || process.env.npm_package_description}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -50,7 +50,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     //'@nuxtjs/eslint-module',
-    
+
   ],
   /*
   ** Nuxt.js modules
@@ -58,22 +58,33 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-    extend(config, ctx) {
-      config.module.rules.push({
-        test: /\.(jpeg|jpg|png?g)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]'
-        }
-      })
+
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
+          logout: false,
+          user: false
+        },
+        // tokenRequired: true,
+        tokenType: 'bearer'
+      }
     }
+  },
+
+  router: {
+    
   },
 
   axios: {
