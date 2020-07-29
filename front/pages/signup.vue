@@ -11,21 +11,22 @@ import UserAuthForm from "@/components/UserAuthForm";
 import swal from "sweetalert";
 
 export default {
-  auth: false,
   components: {
     UserAuthForm,
   },
   methods: {
     async signUpUser(registerInfo) {
-      try {
         await this.$axios.post("/api/auth/signup", registerInfo);
         //swal("Confirmation de création", "Votre compte a bien été créé.");
         this.$auth.loginWith("local", {
           data: registerInfo,
-        });
-      } catch (err) {
-        swal("Error", "Erreur à l'inscription.", "error");
-      }
+        }).catch((err) =>
+          swal(
+            "Erreur de connexion",
+            "Veuillez vérifier vos identifiants et réessayez.",
+            "error"
+          )
+        );
     },
   },
 };

@@ -84,7 +84,7 @@ export default {
   },
 
   router: {
-    middleware: ['auth']
+    
   },
 
   axios: {

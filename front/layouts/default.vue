@@ -3,7 +3,7 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-warning text-light">
         <div class="container">
-          <a class="navbar-brand" href="#">Gestionnaire d'objets</a>
+          <a class="navbar-brand" href="/">Gestionnaire d'objets</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -18,10 +18,10 @@
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul v-if="$auth.loggedIn" class="navbar-nav">
               <li class="nav-item">
-                <span class="nav-link">{{ $auth.user.email }}</span>
+                <a class="nav-link">Vous êtes actuellement connecté.</a>
               </li>
               <li>
-                <a @click="$auth.logout()" class="nav-link">Se déconnecter</a>
+                <a @click="$auth.logout()" class="nav-link" href="">Se déconnecter</a>
               </li>
             </ul>
             <ul class="navbar-nav" v-else>

@@ -26,7 +26,6 @@
 import manager from '@/components/manager'
 
 export default {
-  auth: false,
   components: {
     manager
   }
